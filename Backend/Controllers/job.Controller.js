@@ -67,4 +67,20 @@ const postJob = asyncHandler(async (req, res, next) => {
 
   return res.status(200).json(new ApiResponse(200, job, "Job Posted Successfully"));
 });
-export { getAllJobs, postJob };
+
+const getUserJobs = asyncHandler(async(req ,res, next)=>{
+  const userId = req.user._id;
+
+  if(!userId) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+
+  const userJobs = await Job.find({jobPostedBy : userId})
+
+  if(!userJobs){
+    return next(new ErrorHandler("Jobs not found", 404));
+  }
+
+  return res.status(200).json(new ApiResponse(200, userJobs, "Jobs Fetched Successfully"));
+})
+export { getAllJobs, postJob , getUserJobs };
