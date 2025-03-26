@@ -43,7 +43,7 @@ const applicationSchema = new mongoose.Schema({
         enum: ["Job Seeker"],
         required: true
     },
-    EmployerId: {
+    employerId: {
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
