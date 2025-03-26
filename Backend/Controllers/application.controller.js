@@ -1,57 +1,78 @@
-import ErrorHandler from "../Middlewares/error.middleware.js";
 import { Application } from "../Models/application.model.js";
-import { Job } from "../Models/job.model.js";
 import ApiResponse from "../Utils/apiResponse.js";
 import { asyncHandler } from "../Utils/asyncHandler.js";
-import { Application } from "../Models/application.model.js";
+import ErrorHandler from "../Middlewares/error.middleware.js";
+import mongoose from "mongoose";
 
-const employergetJobApplications = asyncHandler(async (req, res, next) => {
+
+const employerGetJobApplications = asyncHandler(async (req, res, next) => {
   const userId = req.user._id;
   const { role } = req.user;
+
   if (!userId) {
     return next(new ErrorHandler("User not found", 404));
   }
 
-  if (!role == "Employer") {
-    return next(new ErrorHandler("Job Seeker cannot view jobs", 400));
+  if (role !== "Employer") {
+    return next(new ErrorHandler("Job Seeker cannot view job applications", 400));
   }
 
-  const applications = await Application.find({ "employerId.user": userId });
+  const applications = await Application.find({ 
+    "employerId.user": new mongoose.Types.ObjectId(userId) 
+  });
 
-  if (!applications) {
-    return next(new ErrorHandler("Cannot find applications", 404));
+  if (!applications || applications.length === 0) {
+    return next(new ErrorHandler("No applications found", 404));
   }
 
-  return res
-    .status(200)
-    .json(
-      new ApiResponse(200, applications, "Applications Fetched Successfully")
-    );
+  return res.status(200).json(
+    new ApiResponse(200, applications, "Applications fetched successfully")
+  );
 });
-const JobSeekergetJobApplications = asyncHandler(async (req, res, next) => {
+
+const jobSeekerGetJobApplications = asyncHandler(async (req, res, next) => {
   const userId = req.user._id;
   const { role } = req.user;
+
   if (!userId) {
     return next(new ErrorHandler("User not found", 404));
   }
 
-  if (role == "Employer") {
-    return next(new ErrorHandler("Employer cannot view jobs", 400));
+  if (role === "Employer") {
+    return next(new ErrorHandler("Employers cannot view job applications", 400));
   }
 
-  const jobApplied = await Application.find({ "applicantId.user": userId });
+  const jobAppliedList = await Application.find({ 
+    "applicantId.user": new mongoose.Types.ObjectId(userId) 
+  });
 
-  if (!jobApplied) {
-    return next(new ErrorHandler("Cannot find applications", 404));
+  if (!jobAppliedList || jobAppliedList.length === 0) {
+    return next(new ErrorHandler("No applications found", 404));
   }
 
-  return res
-    .status(200)
-    .json(
-      new ApiResponse(200, jobApplied, "Applications Fetched Successfully")
-    );
+  return res.status(200).json(
+    new ApiResponse(200, jobAppliedList, "Applications fetched successfully")
+  );
+});
+
+const deleteJobApplication = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return next(new ErrorHandler("Please provide job ID", 400));
+  }
+
+  const deletedJob = await Application.findOneAndDelete({ _id: new mongoose.Types.ObjectId(id) });
+
+  if (!deletedJob) {
+    return next(new ErrorHandler("Error while deleting job", 404));
+  }
+
+  return res.status(200).json(new ApiResponse(200, deletedJob, "Application deleted successfully"));
 });
 
 export {
-  employergetJobApplications,
-  JobSeekergetJobApplications,}
+  employerGetJobApplications,
+  jobSeekerGetJobApplications,
+  deleteJobApplication,
+};
