@@ -2,7 +2,8 @@ import { Router } from "express";
 import {
     employerGetJobApplications,
     jobSeekerGetJobApplications,
-    deleteJobApplication, // ✅ Fixed typo
+    deleteJobApplication,
+    applyForJob // ✅ Fixed typo
 } from "../Controllers/application.controller.js";
 import isAuthorized from "../Middlewares/auth.middleware.js";
 
@@ -13,5 +14,6 @@ router.use(isAuthorized); // ✅ Ensures all routes require authentication
 router.get("/getmyapplications", employerGetJobApplications);
 router.get("/jobapplications", jobSeekerGetJobApplications);
 router.delete("/delete/:id", deleteJobApplication); // ✅ Fixed typo
+router.post("/post/", applyForJob); // ✅ Fixed typo
 
 export default router;
