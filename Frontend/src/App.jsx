@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext ,useEffect} from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import "./App.css";
 import Login from './Components/Auth/Login.jsx';
@@ -9,7 +9,7 @@ import JobDetails from './Components/Job/JobDetails.jsx';
 import MyJobs from './Components/Job/MyJobs.jsx';
 import PostJob from './Components/Job/PostJob.jsx';
 import Application from './Components/Application/Application.jsx';
-import MyApplications from './Components/Application/MyApplications.jsx';
+import MyApplications from "./Components/Application/MyApplicatoins.jsx"
 import NotFound from './Components/NotFound/NotFound.jsx';
 import { Toaster } from "react-hot-toast";
 import { Context } from './main.jsx';

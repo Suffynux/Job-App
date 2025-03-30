@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-function MyApplicatoins() {
-  return (
-    <div>MyApplicatoins</div>
-  )
-}
+const MyApplications = () => {
+  return <div>My Applications</div>;
+};
 
-export default MyApplicatoins
+export default MyApplications;

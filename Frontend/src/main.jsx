@@ -1,7 +1,7 @@
 import {   StrictMode ,createContext, useState} from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-
+import "./App.css";
 export const Context = createContext({isAuthorized : false})
 const AppWrapper = ()=>{
   const [isAuthorized , setIsAuthorized] = useState(false)
