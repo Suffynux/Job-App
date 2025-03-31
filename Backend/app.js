@@ -16,8 +16,10 @@ app.use(
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"], // Explicitly allow headers
   })
 );
+
 
 app.use(cookieParser());
 app.use(express.json());
