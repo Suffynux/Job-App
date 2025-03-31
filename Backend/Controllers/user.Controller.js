@@ -83,4 +83,23 @@ const resetAllPasswords = asyncHandler(async(req, res, next) => {
     });
 })
 
-export { registerUser  ,loginUser , logout , resetAllPasswords};  // Named export
+
+const getUser = asyncHandler(async (req, res, next) => {
+    try {
+        const userId = req.user?._id;
+        if (!userId) {
+            return next(new ErrorHandler("User ID is missing from request", 400));
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return next(new ErrorHandler("User not found", 404));
+        }
+
+        res.status(200).json(new ApiResponse(200, user));
+    } catch (error) {
+        next(error);
+    }
+});
+
+export { registerUser  ,loginUser , logout , resetAllPasswords ,getUser};  // Named export
