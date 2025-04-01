@@ -2,7 +2,16 @@ import React from 'react'
 
 function PopularCompanies() {
   return (
-    <div>PopularCompanies</div>
+    <>
+    <div className="companies">
+      <div className="container">
+        <h3>Top Companies</h3>
+        <div className="banner">
+          
+        </div>
+      </div>
+    </div>
+    </>
   )
 }
 
