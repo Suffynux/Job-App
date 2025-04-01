@@ -18,7 +18,7 @@ function Navbar() {
         {},  // ✅ Correct placement of withCredentials
         { withCredentials: true }
       );
-      toast.success(response.data.user);
+      toast.success(response.data.data || "Logged out successfully");
       setIsAuthorized(false);
       navigateTo("/login");
     } catch (error) {
