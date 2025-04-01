@@ -1,14 +1,14 @@
 import React from 'react'
 import { useContext ,useEffect } from 'react'
-import { Context } from '../main.jsx';
+import { Context } from '../../main.jsx'
 import {FaFacebook , FaLinkedinIn , FaYoutube} from "react-icons/fa"
 import {RiInstagramLine} from "react-icons/ri"
 import { Link } from 'react-router-dom';
-import "./App.css";
-const { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
+// import "./App.css";
 
 
 function Footer() {
+  const { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
   return (
     <footer className={isAuthorized ? "footerShow" : "footerHide"}>
       <div>&copy; All Right Reserved By Code with zeeshu</div>

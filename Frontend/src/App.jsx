@@ -14,25 +14,36 @@ import NotFound from './Components/NotFound/NotFound.jsx';
 import { Toaster } from "react-hot-toast";
 import { Context } from './main.jsx';
 import axios from "axios";
+import Navbar from './Components/Layout/Navbar.jsx';
+import Footer from './Components/Layout/Footer.jsx';
+
 
 function App() {
   const {isAuthorized , setIsAuthorized , user , setUser} = useContext(Context)
   useEffect(() => {
-    const fetchUser = async()=>{
+    const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/v1/user/getuser" , {withCredentials: true})
-        setUser(response.data.user)
-        setIsAuthorized(true)
+        const response = await axios.get("http://localhost:4000/api/v1/user/getuser", { withCredentials: true });
+    
+        if (response.data.data) {  // ✅ Corrected access to user data
+          setUser(response.data.data);
+          console.log("User Data:", response.data.data);
+          setIsAuthorized(true);
+        } else {
+          setIsAuthorized(false);
+        }
       } catch (error) {
-        setIsAuthorized(false)
-        console.log("Getting error while fetching user" , error);
+        setIsAuthorized(false);
+        console.log("Error fetching user:", error);
       }
-    }
+    };
+    
     fetchUser() 
   }, [isAuthorized])
   
   return (
     <BrowserRouter>
+    <Navbar />
       <Toaster />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -52,6 +63,7 @@ function App() {
         {/* 404 Route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
