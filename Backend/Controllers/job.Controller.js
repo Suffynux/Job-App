@@ -158,4 +158,15 @@ const deleteJob = asyncHandler(async(req , res , next)=>{
 
   return res.status(200).json(new ApiResponse(200, deletedJob, "Job Deleted Successfully"));
 })
-export { getAllJobs, postJob, getUserJobs, updateJob , deleteJob};
+
+const getSingleJob = asyncHandler(async(req, res ,next)=>{
+  const {id} = req.params;
+
+  if(!id){
+    return next(new ErrorHandler("Please provide job id", 400));
+  }
+
+  const jobDetails = await Job.findById(id);
+  return res.status(200).json(new ApiResponse(200, jobDetails, "Job Fetched Successfully"));
+})
+export { getAllJobs, postJob, getUserJobs, updateJob , deleteJob ,getSingleJob};

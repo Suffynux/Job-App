@@ -51,8 +51,8 @@ function App() {
         <Route path='/register' element={<Register />} />
         
         {/* Job Routes */}
-        <Route path='/jobs' element={<JobDetails />} />
-        <Route path='/job/:id' element={<Job />} />
+        <Route path='/job/:id' element={<JobDetails />} />
+        <Route path='/job/' element={<Job />} />
         <Route path='/job/post' element={<PostJob />} />
         <Route path='/job/me' element={<MyJobs />} />
 
