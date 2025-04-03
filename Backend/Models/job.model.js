@@ -32,7 +32,6 @@ const jobSchema = mongoose.Schema({
   },
   fixedSalary: {
     type: Number,
-    required: true,
     MinLength: [3, "Salary must be at least 3 characters long"],
     MaxLength: [9, "Salary must be at most 9 characters long"],
   },
