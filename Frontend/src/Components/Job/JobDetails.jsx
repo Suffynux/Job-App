@@ -3,6 +3,8 @@ import { Context } from "../../main";
 import { useNavigate, useParams ,Link} from "react-router-dom";
 import axios from "axios";
 
+
+// SINGLE JOB DATA FROM THE BACKEND
 function JobDetails() {
   const { id } = useParams();
   const [jobDetails, setjobDetais] = useState({});

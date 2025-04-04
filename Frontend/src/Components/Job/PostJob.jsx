@@ -68,11 +68,28 @@ function PostJob() {
 
       if (response.status === 200) {
         toast.success(response.data.message || "Job Posted Successfully");
+        const jobId = response.data.job?._id; // make sure your API sends the created job's ID
+
+        if (jobId) {
+          navigateTo(`/job/${jobId}`);
+        } else {
+          navigateTo("/jobs"); // fallback to job list
+        }
       }
+
+      setTitle("");
+      setDescription("");
+      setCategory("");
+      setCountry("");
+      setLocation("")
+      setCity("");
+
       console.log("Job posted successfully:", response.data);
     } catch (error) {
       toast.error(error.response?.data?.message || "Error while posting job");
     }
+
+
   };
 
   return (

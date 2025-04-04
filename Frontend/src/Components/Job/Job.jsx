@@ -3,6 +3,8 @@ import { Context } from "../../main.jsx";
 import { useNavigate , Link } from "react-router-dom";
 import axios from "axios";
 
+
+// GET ALL JOBS FROM THE BACKEND
 function Job() {
   const [jobs, setJobs] = useState([]);
   const { isAuthorized } = useContext(Context);
