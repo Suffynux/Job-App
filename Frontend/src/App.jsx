@@ -27,14 +27,12 @@ function App() {
     
         if (response.data.data) {  // ✅ Corrected access to user data
           setUser(response.data.data);
-          console.log("User Data:", response.data.data);
           setIsAuthorized(true);
         } else {
           setIsAuthorized(false);
         }
       } catch (error) {
         setIsAuthorized(false);
-        console.log("Error fetching user:", error);
       }
     };
     

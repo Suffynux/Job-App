@@ -56,7 +56,7 @@ function JobDetails() {
           <p>Salary : {jobDetails.fixedSalary}</p>
           <p>
          {user && user.role == "Employer" ? <></> : <>
-          <button><Link to={`application/${jobDetails._id}`}>Apply for job</Link></button>  </>}
+          <button><Link to={`/application/${jobDetails._id}`}>Apply for job</Link></button>  </>}
           </p>
         </div>
       </div>

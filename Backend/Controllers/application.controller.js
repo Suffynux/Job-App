@@ -66,7 +66,7 @@ const deleteJobApplication = asyncHandler(async (req, res, next) => {
     return next(new ErrorHandler("Please provide job ID", 400));
   }
 
-  const deletedJob = await Application.findOneAndDelete({ _id: new mongoose.Types.ObjectId(id) });
+  const deletedJob = await Application.findOneAndDelete(id);
 
   if (!deletedJob) {
     return next(new ErrorHandler("Error while deleting job", 404));
